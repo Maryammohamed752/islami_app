@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:islami_app/onboarding_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,7 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
       initialRoute:"/" ,
-      routes: {},
+      routes: {
+          OnboardingScreen.routeName:(context)=>const OnboardingScreen()
+      },
     );
   }
 }
