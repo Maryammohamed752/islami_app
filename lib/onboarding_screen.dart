@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:islami_app/home/home_screen.dart';
 //test push on github
 class OnboardingScreen extends StatelessWidget {
   static const String routeName="/";
@@ -28,7 +29,9 @@ bodyTextStyle: bodyStyle,
       ),
       globalBackgroundColor: Color(0xff202020),
       showDoneButton: true,
-      onDone: (){},
+      onDone: (){
+        Navigator.pushReplacementNamed(context,HomeScreen.routeName);
+      },
     done:const Text("Finish",style:  TextStyle(fontSize: 16.0,
         fontWeight: FontWeight.bold,
         color:Color(0xFFE2BE7F))),showNextButton: true,next:const Text("Next",style:  TextStyle(fontSize: 16.0,
