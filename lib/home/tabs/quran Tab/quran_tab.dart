@@ -7,7 +7,7 @@ import 'package:islami_app/models/sura_model.dart';
 
 class QuranTab extends StatefulWidget {
    QuranTab({super.key});
-
+  //Quran tab finishes.
   @override
   State<QuranTab> createState() => _QuranTabState();
 }
@@ -46,59 +46,76 @@ setState(() {
             children: [
               Image.asset("assets/images/onboarding_header.png"),
               _SearchItem(),
-
-
-              Text("Most Recently",style: GoogleFonts.elMessiri(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              color: Colors.white),),
-              SuraModel.searchResult.isNotEmpty?
-                  SizedBox():
-               SizedBox(height: 8,),
-              Container(height: 150,
-
-              child: ListView.separated(
-                separatorBuilder: (context,index)=>SizedBox(width: 16,),
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (context, index){
-                return SuraItemHorizontal(model: SuraModel.getSuraModel(index),);
-              },itemCount: SuraModel.listCounts,),),
-                SizedBox(height: 8,),
-
-
-              Text("Suras List",style: GoogleFonts.elMessiri(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),),
-              SizedBox(height: 8,),
-              Expanded(
-                child: ListView.separated(
-                  separatorBuilder: (context,index)=>Divider(
-                    endIndent: 40,
-                    indent: 40,
-                  ),
-                  padding:EdgeInsets.zero,
-                  itemBuilder: (context,index)
-                {
-                  return SuraNameItem(
-
-                    model: SuraModel.searchResult.isNotEmpty?
-                    SuraModel.getSelectedSuraModel(index)
-                    :SuraModel.getSuraModel(index),
-                  )
-                      ;
-                },
-
-                itemCount: SuraModel.searchResult.isNotEmpty?
-                SuraModel.searchResult.length:SuraModel.listCounts,),
-              )
-            ],
+             if( SuraModel.searchResult.isNotEmpty||searchController.text.isNotEmpty)...[
+               _SuraNamesHorzientalList()],
+               _SuraNamesVerticalList(),
+             ],
 
           ),
 
-        ));
+        )
+    );
   }
-
+  Widget _SuraNamesHorzientalList(){
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Most Recently",style: GoogleFonts.elMessiri(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.white),),
+          SuraModel.searchResult.isNotEmpty?
+          SizedBox():
+          SizedBox(height: 8,),
+          Container(height: 150,
+      
+            child: ListView.separated(
+              separatorBuilder: (context,index)=>SizedBox(width: 16,),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index){
+                return SuraItemHorizontal(model: SuraModel.getSuraModel(index),);
+              },itemCount: SuraModel.listCounts,),),
+          SizedBox(height: 8,),
+        ],
+      ),
+    );
+  }
+  Widget _SuraNamesVerticalList(){
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text("Suras List",style: GoogleFonts.elMessiri(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.white),),
+          SizedBox(height: 8,),
+          Expanded(
+            child: ListView.separated(
+              separatorBuilder: (context,index)=>Divider(
+                endIndent: 40,
+                indent: 40,
+              ),
+              padding:EdgeInsets.zero,
+              itemBuilder: (context,index)
+              {
+                return SuraNameItem(
+      
+                  model: SuraModel.searchResult.isNotEmpty?
+                  SuraModel.getSelectedSuraModel(index)
+                      :SuraModel.getSuraModel(index),
+                )
+                ;
+              },
+      
+              itemCount: SuraModel.searchResult.isNotEmpty?
+              SuraModel.searchResult.length:SuraModel.listCounts,),
+          )
+        ],
+      ),
+    );
+  }
   Widget _SearchItem(){
    return Column(
      children: [
